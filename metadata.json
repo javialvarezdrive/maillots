@@ -1,5 +1,7 @@
 {
-  "name": "Photo Studio Skate",
+  "name": "Rudolls Photo Studio Skate",
   "description": "An AI-powered photography director that generates images of models wearing custom-designed leotards in various settings. Upload a leotard design and a model reference to create stunning, professional photos.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "camera"
+  ]
 }

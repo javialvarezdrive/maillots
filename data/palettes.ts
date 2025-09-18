@@ -7,22 +7,22 @@ export interface ColorPalette {
 export const colorPalettes: ColorPalette[] = [
     {
         id: 'none',
-        name: 'Ninguno',
+        name: 'Original',
         colors: [],
     },
     {
         id: 'sunset',
-        name: 'Tonos Atardecer',
+        name: 'Atardecer',
         colors: ['#F97721', '#F4A723', '#D34E44', '#9B3C55', '#2F264D'],
     },
     {
         id: 'oceanic',
-        name: 'Azules Oceánicos',
+        name: 'Oceánicos',
         colors: ['#006994', '#0096C7', '#48B5E3', '#90E0EF', '#CAF0F8'],
     },
     {
         id: 'pastel',
-        name: 'Sueños Pastel',
+        name: 'Pastel',
         colors: ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'],
     },
     {
@@ -32,7 +32,7 @@ export const colorPalettes: ColorPalette[] = [
     },
     {
         id: 'forest',
-        name: 'Verdes Bosque',
+        name: 'Bosque',
         colors: ['#2D6A4F', '#40916C', '#52B788', '#74C69D', '#95D5B2'],
     }
 ];
