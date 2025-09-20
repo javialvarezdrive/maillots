@@ -1,28 +1,49 @@
-import React, { useEffect, useCallback, useState } from 'react';
+/**
+ * @file A modal component for previewing generated images.
+ * It allows users to navigate through a gallery of images, zoom in on a specific image,
+ * download it, or select it for refinement.
+ */
+import React, { useState, useCallback, useEffect } from 'react';
 import DownloadIcon from './icons/DownloadIcon';
 import MagnifyingGlassIcon from './icons/MagnifyingGlassIcon';
 import SparklesIcon from './icons/SparklesIcon';
 
+/**
+ * Props for the ImagePreviewModal component.
+ */
 interface ImagePreviewModalProps {
+  /** An array of image data URLs to be displayed. */
   images: string[];
+  /** The index of the currently visible image in the `images` array. */
   currentIndex: number;
+  /** Callback to close the modal. */
   onClose: () => void;
+  /** Callback to navigate to the next or previous image. */
   onNavigate: (direction: 'next' | 'prev') => void;
+  /** Callback to select the current image for further refinement. */
   onSelectForRefinement: (index: number) => void;
 }
 
 const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({ images, currentIndex, onClose, onNavigate, onSelectForRefinement }) => {
+  // State to manage the zoom level of the image.
   const [isZoomed, setIsZoomed] = useState(false);
 
+  /**
+   * Handles keyboard events for modal navigation and closing.
+   * - Escape: Closes the modal (or unzooms first).
+   * - ArrowRight: Navigates to the next image.
+   * - ArrowLeft: Navigates to the previous image.
+   */
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
     if (event.key === 'Escape') {
       if (isZoomed) {
-        setIsZoomed(false);
+        setIsZoomed(false); // First escape press unzooms
         return;
       }
-      onClose();
+      onClose(); // Second escape press closes modal
     }
     
+    // Disable arrow key navigation when zoomed in.
     if (isZoomed) return;
 
     if (event.key === 'ArrowRight') {
@@ -32,6 +53,7 @@ const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({ images, currentIn
     }
   }, [onNavigate, onClose, isZoomed]);
 
+  // Effect to add and remove the keyboard event listener.
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -39,26 +61,31 @@ const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({ images, currentIn
     };
   }, [handleKeyDown]);
   
+  // Effect to reset zoom state whenever the image index changes.
   useEffect(() => {
     setIsZoomed(false);
   }, [currentIndex]);
 
 
+  // Do not render the modal if the image data is invalid.
   if (images.length === 0 || currentIndex < 0 || currentIndex >= images.length) {
     return null;
   }
   
   const imageUrl = images[currentIndex];
 
+  /** Prevents clicks inside the modal content from closing the modal. */
   const handleModalContentClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
 
+  /** Toggles the zoom state of the image. */
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsZoomed(prev => !prev);
   };
   
+  /** Prevents the download link click from propagating. */
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.stopPropagation();
   };
@@ -88,7 +115,7 @@ const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({ images, currentIn
           />
         </div>
 
-        {/* Navigation Buttons */}
+        {/* Navigation Buttons (visible only if there's more than one image and not zoomed) */}
         {images.length > 1 && !isZoomed && (
           <>
             <button
@@ -126,7 +153,7 @@ const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({ images, currentIn
             </button>
             <a
               href={imageUrl}
-              download={`photo-studio-skate-${Date.now()}.png`}
+              download={`aristic-photo-lab-${Date.now()}.png`}
               onClick={handleDownloadClick}
               className="w-10 h-10 bg-slate-800/90 text-white rounded-full flex items-center justify-center hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-transform duration-200 hover:scale-110"
               aria-label="Download image"

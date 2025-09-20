@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * MagnifyingGlassIcon component.
+ * Renders a simple SVG icon of a magnifying glass, typically used for search or zoom actions.
+ * @param props - Standard SVG props.
+ */
 const MagnifyingGlassIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

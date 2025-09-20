@@ -1,9 +1,22 @@
+/**
+ * @file This file contains the predefined color palettes available for the user to select.
+ * These palettes can be used to constrain the colors of the generated leotard design.
+ */
+
+/**
+ * Defines the structure for a single color palette.
+ */
 export interface ColorPalette {
     id: string;
     name: string;
     colors: string[];
 }
 
+/**
+ * An array of predefined color palettes.
+ * The first palette, 'none', is a special case to indicate that the original
+ * colors of the leotard design should be used.
+ */
 export const colorPalettes: ColorPalette[] = [
     {
         id: 'none',
